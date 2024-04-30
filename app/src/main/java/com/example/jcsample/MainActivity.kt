@@ -1,9 +1,11 @@
 package com.example.jcsample
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,9 +17,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jcsample.ui.theme.JCSampleTheme
+import kotlin.coroutines.coroutineContext
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,10 +57,16 @@ fun FunctionList() {
 
 @Composable
 fun NumberListItem(number: Int) {
+    val context = LocalContext.current
     Row(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Gray)
+            .clickable {
+                Toast
+                    .makeText(context, "click test $number", Toast.LENGTH_SHORT)
+                    .show()
+            }
     ) {
         Text(
             text = "Number: $number",
