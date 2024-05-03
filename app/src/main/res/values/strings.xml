@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">JCSample</string>
+    <string name="top_title">Function Confirm</string>
+    <string name="git_repo_title">Search Github Repository</string>
 </resources>

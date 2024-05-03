@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -20,6 +21,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.jcsample.R
+import com.example.jcsample.ui.component.CommonTopBar
 import com.example.jcsample.ui.theme.JCSampleTheme
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -48,15 +51,19 @@ fun TopScreen(
             .launchIn(coroutineScope)
     }
 
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.LightGray)
-            .padding(0.dp),
-        verticalArrangement = Arrangement.spacedBy(1.dp)
-    ) {
-        items(50) { index ->
-            NumberListItem(viewModel, index = index)
+    Scaffold(
+        topBar = { CommonTopBar(navController, R.string.top_title) },
+    ) { innerPadding ->
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.LightGray)
+                .padding(innerPadding),
+            verticalArrangement = Arrangement.spacedBy(1.dp)
+        ) {
+            items(50) { index ->
+                NumberListItem(viewModel, index = index)
+            }
         }
     }
 }
