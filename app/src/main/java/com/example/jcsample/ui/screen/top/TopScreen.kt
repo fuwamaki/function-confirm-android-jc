@@ -10,18 +10,44 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.jcsample.ui.screen.Screen
 import com.example.jcsample.ui.theme.JCSampleTheme
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 @Composable
-fun TopScreen(navController: NavController) {
+fun TopScreen(
+    navController: NavController,
+    viewModel: TopViewModel = hiltViewModel()
+) {
+    val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
+
+    LaunchedEffect(context) {
+        viewModel.showToast
+            .onEach { message ->
+                Toast
+                    .makeText(context, message, Toast.LENGTH_SHORT)
+                    .show()
+            }
+            .launchIn(coroutineScope)
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.navigateFlow
+            .onEach { navController.navigate(it.name) }
+            .launchIn(coroutineScope)
+    }
+
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -30,29 +56,26 @@ fun TopScreen(navController: NavController) {
         verticalArrangement = Arrangement.spacedBy(1.dp)
     ) {
         items(50) { index ->
-            NumberListItem(navController, number = index)
+            NumberListItem(viewModel, index = index)
         }
     }
 }
 
 @Composable
-private fun NumberListItem(navController: NavController, number: Int) {
-    val context = LocalContext.current
+private fun NumberListItem(
+    viewModel: TopViewModel,
+    index: Int,
+) {
     Row(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Gray)
             .clickable {
-                if (number == 0) {
-                    navController.navigate(Screen.GitRepoScreen.name)
-                }
-                Toast
-                    .makeText(context, "click test $number", Toast.LENGTH_SHORT)
-                    .show()
+                viewModel.onItemClick(index)
             }
     ) {
         Text(
-            text = "Number: $number",
+            text = "Number: $index",
             modifier = Modifier
                 .padding(12.dp)
         )
