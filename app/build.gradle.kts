@@ -76,6 +76,9 @@ dependencies {
     // 追加 ※記述だとうまく追加できない。設定(Command+;)から追加すると良い。
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.kotlin.result)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
