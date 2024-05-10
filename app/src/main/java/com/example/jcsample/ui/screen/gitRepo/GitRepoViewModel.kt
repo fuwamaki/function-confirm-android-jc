@@ -30,13 +30,6 @@ class GitRepoViewModel @Inject constructor(
         _searchText.value = text
     }
 
-    fun onToggleSearch(toggle: Boolean) {
-        _isSearching.value = !_isSearching.value
-        if (!_isSearching.value) {
-            onSearchTextChange("")
-        }
-    }
-
     fun onSearch(text: String) = viewModelScope.launch {
         _isSearching.emit(false)
         githubRepository.getRepositories(text).mapBoth(
