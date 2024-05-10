@@ -1,12 +1,15 @@
 package com.example.jcsample.ui.screen.gitRepo
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -23,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import coil.compose.rememberAsyncImagePainter
 import com.example.jcsample.R
 import com.example.jcsample.model.GitRepo
 import com.example.jcsample.ui.component.CommonTopBar
@@ -76,10 +80,18 @@ private fun Item(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.onPrimary)
+            .padding(4.dp)
             .clickable {
                 // WebView
             }
     ) {
+        Image(
+            modifier = Modifier
+                .width(48.dp)
+                .height(48.dp),
+            painter = rememberAsyncImagePainter(data.owner.avatarUrl),
+            contentDescription = data.fullName
+        )
         Text(
             text = data.fullName,
             modifier = Modifier

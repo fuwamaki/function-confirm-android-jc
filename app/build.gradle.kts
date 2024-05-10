@@ -75,6 +75,7 @@ dependencies {
 
     // 追加 ※記述だとうまく追加できない。設定(Command+;)から追加すると良い。
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.coil.compose)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
