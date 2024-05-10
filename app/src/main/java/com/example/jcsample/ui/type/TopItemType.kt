@@ -15,7 +15,7 @@ enum class TopItemType {
     val screen: Screen
         get() {
             return when (this) {
-                GitRepo -> Screen.GitRepoScreen
+                GitRepo -> Screen.GitRepo
             }
         }
 }

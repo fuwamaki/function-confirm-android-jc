@@ -66,7 +66,7 @@ fun GitRepoScreen(
     ) { innerPadding ->
         LazyColumn(Modifier.padding(innerPadding)) {
             repositories.forEach { data ->
-                item { Item(data) }
+                item { Item(navController, data) }
             }
         }
     }
@@ -74,6 +74,7 @@ fun GitRepoScreen(
 
 @Composable
 private fun Item(
+    navController: NavController,
     data: GitRepo,
 ) {
     Row(
@@ -82,7 +83,7 @@ private fun Item(
             .background(MaterialTheme.colorScheme.onPrimary)
             .padding(4.dp)
             .clickable {
-                // WebView
+                navController.navigate("web-view/?url=${data.htmlUrl}")
             }
     ) {
         Image(

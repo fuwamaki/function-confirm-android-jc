@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 
@@ -16,11 +17,13 @@ import androidx.navigation.NavController
 @Composable
 fun CommonTopBar(
     navController: NavController,
-    stringId: Int,
+    stringId: Int? = null,
+    string: String = ""
 ) {
     val context = LocalContext.current
+    val title = stringId?.let { context.getString(it) } ?: string
     TopAppBar(
-        title = { Text(context.getString(stringId)) },
+        title = { Text(text = title, maxLines = 1) },
         colors = TopAppBarDefaults.topAppBarColors(),
         navigationIcon = {
             if (navController.previousBackStackEntry != null) {
