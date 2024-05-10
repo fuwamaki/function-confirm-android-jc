@@ -1,5 +1,6 @@
 package com.example.jcsample.ui.screen.top
 
+import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,6 +26,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.jcsample.R
 import com.example.jcsample.ui.component.CommonTopBar
 import com.example.jcsample.ui.theme.JCSampleTheme
+import com.example.jcsample.ui.type.TopItemType
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -57,12 +60,14 @@ fun TopScreen(
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.LightGray)
+                .background(MaterialTheme.colorScheme.background)
                 .padding(innerPadding),
             verticalArrangement = Arrangement.spacedBy(1.dp)
         ) {
-            items(50) { index ->
-                NumberListItem(viewModel, index = index)
+            TopItemType.entries.forEach { type ->
+                item {
+                    NumberListItem(context, viewModel, type)
+                }
             }
         }
     }
@@ -70,19 +75,20 @@ fun TopScreen(
 
 @Composable
 private fun NumberListItem(
+    context: Context,
     viewModel: TopViewModel,
-    index: Int,
+    type: TopItemType,
 ) {
     Row(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Gray)
+            .background(MaterialTheme.colorScheme.onPrimary)
             .clickable {
-                viewModel.onItemClick(index)
+                viewModel.onItemClick(context, type)
             }
     ) {
         Text(
-            text = "Number: $index",
+            text = type.title(context),
             modifier = Modifier
                 .padding(12.dp)
         )
