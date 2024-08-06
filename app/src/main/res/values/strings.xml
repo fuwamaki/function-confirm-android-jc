@@ -2,4 +2,5 @@
     <string name="app_name">JCSample</string>
     <string name="top_title">Function Confirm</string>
     <string name="git_repo_title">Github Repository</string>
+    <string name="three_list_title">Three List</string>
 </resources>

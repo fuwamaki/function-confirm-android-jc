@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.jcsample.ui.screen.Screen
 import com.example.jcsample.ui.screen.gitRepo.GitRepoScreen
+import com.example.jcsample.ui.screen.threeList.ThreeListScreen
 import com.example.jcsample.ui.screen.top.TopScreen
 import com.example.jcsample.ui.screen.webview.WebViewScreen
 
@@ -23,6 +24,9 @@ fun JCSampleApp(
         }
         composable(route = Screen.GitRepo.route) {
             GitRepoScreen(navController = appState.navController)
+        }
+        composable(route = Screen.ThreeList.route) {
+            ThreeListScreen(navController = appState.navController)
         }
         composable(
             route = Screen.WebView.route,
